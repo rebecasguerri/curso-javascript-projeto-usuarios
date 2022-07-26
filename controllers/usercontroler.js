@@ -1,7 +1,7 @@
 class UserController {
     constructor(formId, tableId){
         this.formEL= document.getElementById(formId);
-        this.tableId= document.getElementById(tableId);
+        this.tableEl= document.getElementById(tableId);
 
         this.onSubmit();
       
@@ -69,7 +69,7 @@ class UserController {
     }
 
      addLine(dataUser){
-         this.tableEL.innerHTML=
+         this.tableEl.innerHTML=
          `<tr>
          <td><img src="${dataUser.photo}" alt="User Image" class="img-circle img-sm"></td>
          <td>${dataUser.name}</td>
