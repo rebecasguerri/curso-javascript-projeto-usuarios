@@ -11,32 +11,49 @@ class UserController {
             event.preventDefault();
            
             let values = this.getValues();
-            
-
-            this.getPhoto((content)=>{
+            //uando promisses 
+            this.getPhoto().then(
+             (content)=>{
                 values.photo = content;
 
                 this.addLine(values);
+
+             },
+             (e)=>{
+                console.log("Deu poblema aqui ein",e)
             });
+
+    
  
          });
     }
-    getPhoto(callback){
-        let fileReader = new FileReader();
+    getPhoto(){
+        return new Promise((resolve, reject)=>{
+            let fileReader = new FileReader();
 
-        let elements = [...this.formEL.elements].filter(item=>{
+         let elements = [...this.formEL.elements].filter(item=>{
            if(item.name === 'photo'){
              return item
            } 
 
         });
+
         let file = elements[0].files[0];
 
 
         fileReader.onload=( ) =>{
-            callback(fileReader.result);
+            resolve(fileReader.result);
        };
-       fileReader.readAsDataURL(file);
+         fileReader.onerror = (e)=>{
+            reject(e)
+         }
+        if (file){
+             fileReader.readAsDataURL(file);
+            }else{
+                resolve('dist/img/boxed-bg.jpg');
+            }
+        });
+        
     }
     getValues(){
         let user = {};
