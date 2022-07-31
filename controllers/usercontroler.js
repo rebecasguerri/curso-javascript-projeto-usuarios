@@ -137,7 +137,7 @@ class UserController {
             for (let name in json){
 
                 let field = form.querySelector("[name="+ name.replace("_","") + "]");
-                console.log("FUNCIONAAAAAAA",name,field)
+                console.log("FUNCIONAAAAAA",name,field)
                 if (field){
                     if(field.type == "file") continue;
                    field.value = json[name];
