@@ -1,3 +1,5 @@
+const { json } = require("express/lib/response");
+
 class UserController {
     constructor(formId, tableId){
         this.formEl= document.getElementById(formId);
@@ -125,7 +127,22 @@ class UserController {
         </tr>
         `;
         tr.querySelector(".btn-edit").addEventListener("click", e=>{
-           console.log( "a parada aconteceu", JSON.parse(tr.dataset.user));
+           
+
+          let json = JSON.parse(tr.dataset.user);
+          let form = document.querySelector("#form-user-update");
+
+          
+
+            for (let name in json){
+
+                let field = form.querySelector("[name="+ name.replace("_","") + "]");
+                console.log("FUNCIONAAAAAAA",name,field)
+                if (field){
+                    if(field.type == "file") continue;
+                   field.value = json[name];
+                 }
+            }
 
            this.showPanelUpdate();
         })
